@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { getAllTopics } from '@/data/merger';
+import { getRegularTopics, getMidtermTopics } from '@/data/merger';
 import { BookOpen, ListTodo } from 'lucide-react';
 import AuthButton from '../auth/AuthButton';
 import CommandMenu from './CommandMenu';
 
 export default function Sidebar() {
-  const topics = getAllTopics();
+  const regularTopics = getRegularTopics();
+  const midtermTopics = getMidtermTopics();
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full border-r bg-white transition-transform md:translate-x-0 dark:border-gray-800 dark:bg-gray-900 flex flex-col">
@@ -26,17 +27,34 @@ export default function Sidebar() {
             <span className="ml-3 font-semibold">Global Problems</span>
           </Link>
         </div>
-        <div className="space-y-1">
+        
+        <div className="space-y-1 mb-8">
           <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-            Topics
+            Current Lessons
           </p>
-          {topics.map((topic) => (
+          {regularTopics.map((topic) => (
             <Link
               key={topic.id}
               href={`/topic/${topic.id}`}
               className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="ml-3 text-sm font-medium">{topic.title}</span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="space-y-1">
+          <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-500">
+            Midterms Reviewer
+          </p>
+          {midtermTopics.map((topic) => (
+            <Link
+              key={topic.id}
+              href={`/topic/${topic.id}`}
+              className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-amber-50 dark:text-white dark:hover:bg-amber-900/30"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-400 dark:bg-amber-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="text-sm">{topic.title}</span>
             </Link>
           ))}
         </div>

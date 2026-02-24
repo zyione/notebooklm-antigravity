@@ -1,18 +1,14 @@
 import data1 from './learning-1.json';
 import data2 from './learning-2.json';
+import midtermsData from './midterms-reviewer.json';
 import { Topic, Flashcard, QuizQuestion, Lesson, ReviewerContent } from '@/types';
 
 function createSlug(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-// learning-1.json structure
-// topics[] -> topic, difficulty, subtopics, lesson (explanation, examples, analogies, key_points_summary), quiz_questions (multiple_choice, identification, true_or_false), flashcards (front, back, difficulty)
-
-// learning-2.json structure (courseTitle, topics)
-// topics[] -> title, reviewer(summary, keyPoints, importantTerms, examples, activeRecallQuestions), lessons(title, content), quiz(question, options, answer), flashcards(front, back)
-
 export const mergedTopics: Topic[] = [];
+export const midtermTopics: Topic[] = [];
 
 // Since there are 4 topics in both and they correspond roughly:
 // 1. Introduction to Information Security & Secure Coding / Introduction to Information Security & SDLC
@@ -114,10 +110,63 @@ for (let i = 0; i < topicsCount; i++) {
   });
 }
 
+// Process Midterms Data
+midtermsData.topics.forEach((t: any) => {
+  const title = t.title;
+  const id = `midterm-${createSlug(title)}`;
+
+  const reviewer: ReviewerContent = {
+    summary: t.reviewer.summary,
+    keyPoints: t.reviewer.keyPoints || [],
+    importantTerms: t.reviewer.importantTerms || [],
+    examples: t.reviewer.examples || [],
+    activeRecallQuestions: t.reviewer.activeRecallQuestions || [],
+  };
+
+  const quizzes: QuizQuestion[] = [];
+  t.quiz?.forEach((q: any) => {
+    quizzes.push({
+      type: q.options.length === 2 && q.options.includes("True") ? 'true_false' : 'multiple_choice',
+      question: q.question,
+      options: q.options,
+      answer: q.answer
+    });
+  });
+
+  const flashcards: Flashcard[] = [];
+  let fcIdCounter = 1;
+  t.flashcards?.forEach((fc: any) => {
+    flashcards.push({
+      id: `${id}-fc-${fcIdCounter++}`,
+      front: fc.front,
+      back: fc.back,
+      difficulty: 'medium'
+    });
+  });
+
+  midtermTopics.push({
+    id,
+    title,
+    reviewer,
+    lessons: t.lessons || [],
+    quizzes,
+    flashcards
+  });
+});
+
+
 export function getAllTopics() {
+  return [...mergedTopics, ...midtermTopics];
+}
+
+export function getRegularTopics() {
   return mergedTopics;
 }
 
+export function getMidtermTopics() {
+  return midtermTopics;
+}
+
 export function getTopicById(id: string) {
-  return mergedTopics.find(t => t.id === id);
+  return getAllTopics().find(t => t.id === id);
 }
