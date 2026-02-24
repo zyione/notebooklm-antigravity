@@ -6,6 +6,8 @@ import { cn } from "@/lib/cn";
 import { db, auth, signInGuest } from "@/lib/firebase";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface QuestionWrapperProps {
   id: string; // unique ID for this question/recall item across the app
@@ -16,6 +18,7 @@ export default function QuestionStateWrapper({ id, children }: QuestionWrapperPr
   const [checked, setChecked] = useState(false);
   const [note, setNote] = useState("");
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [isPreviewing, setIsPreviewing] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
   // Load auth state
@@ -104,15 +107,40 @@ export default function QuestionStateWrapper({ id, children }: QuestionWrapperPr
 
       {isNoteOpen && (
         <div className="mt-4 p-4 bg-amber-50/50 dark:bg-amber-900/10 border-l-4 border-amber-300 dark:border-amber-700 rounded-r-lg">
-          <div className="flex items-center gap-2 mb-2 text-amber-800 dark:text-amber-200 font-semibold text-sm">
-            <StickyNote className="w-4 h-4" /> Personal Notes
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200 font-semibold text-sm">
+              <StickyNote className="w-4 h-4" /> Personal Notes
+            </div>
+            {note && (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setIsPreviewing(false)}
+                  className={cn("text-xs px-2 py-1 rounded", !isPreviewing ? "bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-100" : "text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50")}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => setIsPreviewing(true)}
+                  className={cn("text-xs px-2 py-1 rounded", isPreviewing ? "bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-100" : "text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50")}
+                >
+                  Preview
+                </button>
+              </div>
+            )}
           </div>
-          <textarea
-            value={note}
-            onChange={(e) => saveNote(e.target.value)}
-            placeholder="Add your personal notes to remember this..."
-            className="w-full bg-transparent border-0 ring-0 focus:ring-0 resize-none min-h-[80px] text-sm text-gray-700 dark:text-gray-300 outline-none"
-          />
+          
+          {isPreviewing && note ? (
+            <div className="prose prose-sm prose-amber dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{note}</ReactMarkdown>
+            </div>
+          ) : (
+            <textarea
+              value={note}
+              onChange={(e) => saveNote(e.target.value)}
+              placeholder="Add your personal notes to remember this... (Markdown supported)"
+              className="w-full bg-transparent border-0 ring-0 focus:ring-0 resize-none min-h-[80px] text-sm text-gray-700 dark:text-gray-300 outline-none"
+            />
+          )}
         </div>
       )}
     </div>

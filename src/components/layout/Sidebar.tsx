@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getAllTopics } from '@/data/merger';
 import { BookOpen, ListTodo } from 'lucide-react';
 import AuthButton from '../auth/AuthButton';
+import CommandMenu from './CommandMenu';
 
 export default function Sidebar() {
   const topics = getAllTopics();
@@ -13,6 +14,9 @@ export default function Sidebar() {
           <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-500" />
           <span className="text-xl font-bold dark:text-white">SecReview</span>
         </Link>
+        <div className="mb-6 px-2">
+          <CommandMenu />
+        </div>
         <div className="space-y-1 mb-6">
           <Link
             href="/problems"
