@@ -1,0 +1,364 @@
+
+{
+  "courseTitle": "Secure Web Development & Information Security",
+  "topics": [
+    {
+      "title": "Introduction to Information Security & SDLC",
+      "reviewer": {
+        "summary": "This topic introduces the foundational concepts of information security, including the CIA triad, definitions of risks and vulnerabilities, security controls, and the integration of security into the Software Development Life Cycle (SDLC) and MVC architecture.",
+        "keyPoints": [
+          "The core objectives of Information Security are Confidentiality, Integrity, and Availability (CIA Triad).",
+          "Risk is calculated as the combination of Likelihood and Impact (Risk = Likelihood × Impact).",
+          "A threat exploits a vulnerability on an asset. A threat does not always result in an attack.",
+          "Controls (Physical, Technical, Administrative) mitigate potential threats.",
+          "The Model-View-Controller (MVC) architecture separates logic from user interface, providing an extra layer of protection through isolation."
+        ],
+        "importantTerms": [
+          {
+            "term": "Asset",
+            "definition": "Any item, tangible or intangible, with value to an individual or organization."
+          },
+          {
+            "term": "Vulnerability",
+            "definition": "An inherent weakness in a network, system, or software."
+          },
+          {
+            "term": "Threat",
+            "definition": "What can go wrong because of the exploitation of a vulnerability."
+          },
+          {
+            "term": "Control",
+            "definition": "A safeguard or countermeasure put in place to avoid, detect, counteract, or minimize threats."
+          }
+        ],
+        "examples": [
+          "Data leakage is an example of a Confidentiality failure.",
+          "A locked door is a physical preventative control, while a CCTV camera is a physical detective control.",
+          "A hacker (Threat Agent) uses SQL Injection (Attack) to exploit an unvalidated input (Vulnerability) to steal customer data (Asset)."
+        ],
+        "activeRecallQuestions": [
+          {
+            "question": "What does the CIA triad stand for?",
+            "answer": "Confidentiality, Integrity, and Availability."
+          },
+          {
+            "question": "What is the formula for Risk?",
+            "answer": "Risk = Likelihood × Impact"
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "The CIA Triad",
+          "content": "Information Security aims to protect assets to achieve three main goals: Confidentiality (only authorized users access data), Integrity (data is not modified without authorization), and Availability (data is accessible when needed in a timely manner)."
+        },
+        {
+          "title": "Assets, Threats, and Vulnerabilities",
+          "content": "An Asset is something of value. A Vulnerability is a weakness in that asset. A Threat is the potential danger that exploits the vulnerability. A Threat Agent is the entity carrying out the threat. Risk is the probability of the threat occurring combined with its impact."
+        },
+        {
+          "title": "MVC Architecture",
+          "content": "MVC separates applications into three components: Model (encapsulates data and business rules), View (the presentation layer/UI that renders HTML without business logic), and Controller (mediator that processes user data and contains security protections)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following describes ensuring data is not modified without prior authorization?",
+          "options": ["Confidentiality", "Integrity", "Availability", "Authentication"],
+          "answer": "Integrity"
+        },
+        {
+          "question": "Which of the following is an example of a technical preventative control?",
+          "options": ["Security Guard", "Audit Log", "Firewall", "Business Continuity Plan"],
+          "answer": "Firewall"
+        },
+        {
+          "question": "In MVC architecture, which component renders data into HTML and should not contain business logic?",
+          "options": ["Model", "View", "Controller", "Database"],
+          "answer": "View"
+        }
+      ],
+      "flashcards": [
+        {
+          "front": "What does the 'C' in CIA Triad stand for?",
+          "back": "Confidentiality (Data is only disclosed to authorized subjects)"
+        },
+        {
+          "front": "Define Risk.",
+          "back": "The combined effect of the likelihood of a threat occurring and its impact (Risk = Likelihood x Impact)."
+        },
+        {
+          "front": "What is a Vulnerability?",
+          "back": "An inherent weakness in a system, hardware, or software."
+        }
+      ]
+    },
+    {
+      "title": "Security Principles & Secure Coding",
+      "reviewer": {
+        "summary": "This topic covers the 10 core principles for secure software design and the secure coding practices required to implement them, such as proper error handling, commenting, and naming conventions.",
+        "keyPoints": [
+          "Minimize Attack Surface Area by removing unnecessary features and entry points.",
+          "Defense in Depth uses multiple layered security controls.",
+          "Fail Securely ensures that when a system breaks, it defaults to a secure, locked state without leaking sensitive information.",
+          "Security through obscurity (like hiding URLs) is not real security.",
+          "Exception handling must hide detailed error messages (like stack traces) from users to prevent information leaks.",
+          "Never hardcode passwords or API keys in code, variable names, or file names."
+        ],
+        "importantTerms": [
+          {
+            "term": "Attack Surface Area",
+            "definition": "Entry points in an application that may allow attackers to gain entry and exploit vulnerabilities."
+          },
+          {
+            "term": "Defense in Depth",
+            "definition": "Implementing multiple layered security controls to protect an application."
+          },
+          {
+            "term": "Separation of Duties",
+            "definition": "No single role should have too much authority, preventing fraud and poor decisions."
+          }
+        ],
+        "examples": [
+          "Fail Securely: An electronic door lock 'fails closed' (stays locked) during a power loss.",
+          "Separation of Duties: The developer writing code cannot authorize deploying that same code to the live server.",
+          "Exception Handling: Displaying 'An error occurred' instead of a database SQL syntax error."
+        ],
+        "activeRecallQuestions": [
+          {
+            "question": "What is the Principle of Least Privilege?",
+            "answer": "Granting users and systems only the minimum access permissions needed to perform their tasks."
+          },
+          {
+            "question": "Why shouldn't you rely on Security Through Obscurity?",
+            "answer": "Because hiding details (like a secret URL) doesn't stop an attacker from finding it. It requires no real authentication."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "Core Security Principles",
+          "content": "Software must follow principles like Secure Defaults (systems are highly secure out-of-the-box), Least Privilege (minimum access required), and treating all External Systems as insecure (validating all third-party APIs). Additionally, fixes should address the root cause (Fix Issues Correctly), not just symptoms."
+        },
+        {
+          "title": "Secure Coding Requirements",
+          "content": "Secure coding involves Architectural, Documentation, and Testing requirements. Testing includes a mix of SAST, DAST, and pen testing. In-code commenting should explain security mechanisms and warn about risks but never store secrets."
+        },
+        {
+          "title": "Exception Handling & Naming",
+          "content": "Applications must handle errors gracefully. Unhandled exceptions can cause DoS attacks or leak database structures to attackers. Naming conventions should be consistent but never expose predictable identifiers or hardcoded credentials."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Renaming an admin portal from '/admin' to '/secret-login-99' violates which principle?",
+          "options": ["Defense in Depth", "Fail Securely", "Security Through Obscurity is Not Security", "Simplicity"],
+          "answer": "Security Through Obscurity is Not Security"
+        },
+        {
+          "question": "A hospital receptionist can view schedules but cannot alter medical records. This is an example of:",
+          "options": ["Separation of Duties", "Principle of Least Privilege", "Fix Issues Correctly", "Secure Defaults"],
+          "answer": "Principle of Least Privilege"
+        },
+        {
+          "question": "Why is proper exception handling important in secure coding?",
+          "options": ["It makes the application run faster.", "It prevents sensitive system information from leaking to attackers via error messages.", "It automatically patches vulnerabilities.", "It reduces the need for passwords."],
+          "answer": "It prevents sensitive system information from leaking to attackers via error messages."
+        }
+      ],
+      "flashcards": [
+        {
+          "front": "What is Defense in Depth?",
+          "back": "Layered security. Using multiple controls so if one fails, others remain (e.g., Network -> Host -> App)."
+        },
+        {
+          "front": "What does 'Fail Securely' mean?",
+          "back": "When a system encounters an error or failure, it defaults to a secure state (e.g., denying access rather than granting it)."
+        },
+        {
+          "front": "What is the rule regarding hardcoded secrets?",
+          "back": "Never hardcode passwords, API keys, or sensitive data in code, variable names, or file names."
+        }
+      ]
+    },
+    {
+      "title": "Threat Modeling",
+      "reviewer": {
+        "summary": "Threat modeling is a structured process to identify, analyze, and mitigate security risks early in the development lifecycle using frameworks like STRIDE and DREAD.",
+        "keyPoints": [
+          "Threat modeling is best applied continuously throughout the SDLC.",
+          "Data Flow Diagrams (DFDs) are used to visualize data movement and identify Trust Boundaries.",
+          "The STRIDE model classifies threats by attacker intent.",
+          "The DREAD model scores and prioritizes threats based on severity.",
+          "Risk in DREAD = Probability x Impact. Probability = (Reproducibility + Exploitability + Discoverability). Impact = (Damage + Affected Users)."
+        ],
+        "importantTerms": [
+          {
+            "term": "Trust Boundary",
+            "definition": "A line on a Data Flow Diagram indicating where data transitions between trusted and untrusted zones."
+          },
+          {
+            "term": "STRIDE",
+            "definition": "A threat classification framework: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of service, Elevation of privilege."
+          },
+          {
+            "term": "DREAD",
+            "definition": "A risk scoring framework: Damage, Reproducibility, Exploitability, Affected Users, Discoverability."
+          }
+        ],
+        "examples": [
+          "Spoofing Identity: Pretending to be someone else.",
+          "Repudiation: Claiming you didn't do a transaction when you actually did.",
+          "Elevation of Privilege: A regular user manipulating a system to gain admin rights."
+        ],
+        "activeRecallQuestions": [
+          {
+            "question": "What are the 6 categories of the STRIDE model?",
+            "answer": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege."
+          },
+          {
+            "question": "What is the purpose of Data Flow Diagrams (DFDs) in threat modeling?",
+            "answer": "To visualize how data moves through a system and identify Trust Boundaries and potential attack surfaces."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "The Threat Modeling Process",
+          "content": "The process involves: 1) Defining security objectives. 2) Decomposing the application (using DFDs and identifying Trust Boundaries). 3) Identifying threats using STRIDE. 4) Prioritizing threats using DREAD. 5) Implementing countermeasures."
+        },
+        {
+          "title": "STRIDE Framework",
+          "content": "STRIDE helps categorize what an attacker wants to do. Spoofing (Identity), Tampering (Integrity), Repudiation (Non-repudiation), Information Disclosure (Confidentiality), Denial of Service (Availability), and Elevation of Privilege (Authorization)."
+        },
+        {
+          "title": "DREAD Framework",
+          "content": "DREAD is a mathematical way to rank threats. It scores Damage Potential, Reproducibility, Exploitability, Affected Users, and Discoverability. This tells developers which vulnerabilities to fix first."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the STRIDE model, an attacker modifying data in the database falls under which category?",
+          "options": ["Spoofing", "Tampering", "Repudiation", "Information Disclosure"],
+          "answer": "Tampering"
+        },
+        {
+          "question": "In the DREAD model, what does the 'E' stand for?",
+          "options": ["Elevation", "Encryption", "Exploitability", "Errors"],
+          "answer": "Exploitability"
+        },
+        {
+          "question": "Which of the following defines a Trust Boundary?",
+          "options": ["The password length requirement.", "The physical lock on a server room.", "The transition point where data moves between trusted and untrusted zones.", "The firewall brand used by the company."],
+          "answer": "The transition point where data moves between trusted and untrusted zones."
+        }
+      ],
+      "flashcards": [
+        {
+          "front": "What does STRIDE stand for?",
+          "back": "Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege."
+        },
+        {
+          "front": "What does DREAD stand for?",
+          "back": "Damage, Reproducibility, Exploitability, Affected Users, Discoverability."
+        },
+        {
+          "front": "What is Repudiation?",
+          "back": "An attacker or user claiming they didn't perform an action, compromising non-repudiation."
+        }
+      ]
+    },
+    {
+      "title": "Authentication & Authorization",
+      "reviewer": {
+        "summary": "This topic clarifies the difference between verifying identity (Authentication) and granting resource access (Authorization), detailing secure protocols, error handling, and standard access control models.",
+        "keyPoints": [
+          "Authentication is proving who you are; Authorization is deciding what you are allowed to do.",
+          "Authentication errors must be generic (e.g., 'Invalid user ID or password') to prevent username enumeration.",
+          "Always use TLS to transmit passwords. Passwords must be salted and hashed.",
+          "Brute-force attacks are mitigated via account lockouts and Multi-Factor Authentication (MFA).",
+          "Authorization checks should be centralized, not copy-pasted across pages.",
+          "Major access control models: DAC, MAC, RBAC, ABAC."
+        ],
+        "importantTerms": [
+          {
+            "term": "Authentication",
+            "definition": "The process of verifying that an individual or entity is who it claims to be."
+          },
+          {
+            "term": "Authorization",
+            "definition": "The process of giving someone permission to do or have something (Access Control)."
+          },
+          {
+            "term": "RBAC (Role-Based Access Control)",
+            "definition": "Access is granted based on the user's role or job function within the organization."
+          },
+          {
+            "term": "MAC (Mandatory Access Control)",
+            "definition": "Access is based on strict security labels and clearances (e.g., Top Secret)."
+          }
+        ],
+        "examples": [
+          "Authentication: Logging in with a username, password, and SMS token (MFA).",
+          "Authorization: A user clicking 'Admin Panel' and being denied because they lack the Admin role.",
+          "Generic Error: 'Login failed; Invalid user ID or password' instead of 'User does not exist'."
+        ],
+        "activeRecallQuestions": [
+          {
+            "question": "What is the difference between Authentication and Authorization?",
+            "answer": "Authentication proves identity. Authorization grants permissions."
+          },
+          {
+            "question": "Why should you use a generic error message for failed logins?",
+            "answer": "To prevent attackers from enumerating (guessing) valid usernames on the system."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "Authentication Best Practices",
+          "content": "Secure authentication requires strong password policies, salting and hashing stored passwords, and using TLS for data in transit. Applications should use generic error messages and consistent HTTP status codes on failed logins to prevent username enumeration. Brute force attacks are stopped using account lockouts and MFA."
+        },
+        {
+          "title": "Authorization Guidelines",
+          "content": "Authorization relies on the Principle of Least Privilege. Access controls must be checked on the server side using centralized routines, ensuring bug fixes apply everywhere. Re-authentication should be required for highly sensitive actions, like changing a password, to prevent CSRF attacks."
+        },
+        {
+          "title": "Access Control Models",
+          "content": "Four main models exist: DAC (owner decides access, flexible but decentralized), MAC (system enforces strict labels like 'Top Secret'), RBAC (access given to roles, users inherit role permissions, highly scalable), and ABAC (access based on dynamic attributes like time, location, or device)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following is the BEST error message for a failed login attempt?",
+          "options": ["Invalid User ID", "Account Disabled", "Invalid user ID or password", "Incorrect Password for User"],
+          "answer": "Invalid user ID or password"
+        },
+        {
+          "question": "Which Access Control model assigns permissions based on security clearances and labels like 'Top Secret'?",
+          "options": ["Discretionary Access Control (DAC)", "Mandatory Access Control (MAC)", "Role-Based Access Control (RBAC)", "Attribute-Based Access Control (ABAC)"],
+          "answer": "Mandatory Access Control (MAC)"
+        },
+        {
+          "question": "Why is it important to use Centralized Authorization Routines?",
+          "options": ["It increases network speed.", "If a bug is found, fixing it in one place applies the fix throughout the application.", "It allows users to bypass passwords.", "It creates a unique login page for every user."],
+          "answer": "If a bug is found, fixing it in one place applies the fix throughout the application."
+        }
+      ],
+      "flashcards": [
+        {
+          "front": "What is Multi-Factor Authentication (MFA)?",
+          "back": "Using two or more different authentication factors (e.g., something you know + something you have) to verify identity."
+        },
+        {
+          "front": "Describe Attribute-Based Access Control (ABAC).",
+          "back": "An access model that uses dynamic rules and properties (like time of day, user location, or device type) to grant permissions."
+        },
+        {
+          "front": "Why require re-authentication for sensitive features (like changing an email)?",
+          "back": "To prevent an attacker who hijacked an active session (or using CSRF) from taking over the account."
+        }
+      ]
+    }
+  ]
+}
