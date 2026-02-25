@@ -54,7 +54,8 @@ export default function AuthButton() {
         // Upgrade anonymous account to Google account
         const { linkWithPopup, GoogleAuthProvider } = await import("firebase/auth");
         const provider = new GoogleAuthProvider();
-        await linkWithPopup(auth.currentUser, provider);
+        const result = await linkWithPopup(auth.currentUser, provider);
+        setUser({ ...result.user }); // Force state update since it's the same user object
         console.log("Anonymous account successfully linked to Google.");
       } else {
         // Normal sign in
@@ -74,14 +75,23 @@ export default function AuthButton() {
   // If user is guest
   return (
     <div className="flex flex-col gap-3 w-full">
-      <div className="flex items-center gap-3 px-1">
-        <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center border border-gray-300 dark:border-gray-700">
-          <UserIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center border border-gray-300 dark:border-gray-700">
+            <UserIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Guest User</span>
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider">Unsaved Progress</span>
+          </div>
         </div>
-        <div className="flex flex-col flex-1 text-left">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Guest User</span>
-          <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider">Unsaved Progress</span>
-        </div>
+        <button
+          onClick={logout}
+          className="p-2 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+          title="Sign Out"
+        >
+          <LogOut className="w-4 h-4" />
+        </button>
       </div>
       <button
         onClick={handleSignIn}
