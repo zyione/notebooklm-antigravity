@@ -75,15 +75,15 @@ export default function QuestionStateWrapper({ id, children }: QuestionWrapperPr
 
   return (
     <div className="relative group">
-      {/* Interactive Toolbar */}
-      <div className="absolute -left-12 top-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      {/* Interactive Toolbar - inline on mobile, absolute on desktop */}
+      <div className="flex flex-row gap-2 mb-2 md:mb-0 md:absolute md:-left-12 md:top-2 md:flex-col md:opacity-0 md:group-hover:opacity-100 transition-opacity">
         <button
           onClick={toggleCheck}
           className={cn(
             "w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors",
             checked 
               ? "bg-green-500 border-green-500 text-white" 
-              : "border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-400 bg-white"
+              : "border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-400 bg-white dark:bg-gray-800"
           )}
           title={checked ? "Mark as unchecked" : "Mark as checked"}
         >

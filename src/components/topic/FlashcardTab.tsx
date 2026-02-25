@@ -154,13 +154,13 @@ export default function FlashcardTab({ flashcards, topicTitle }: { flashcards: F
   const currentCard = deck[currentIndex];
 
   return (
-    <div className="flex flex-col items-center max-w-3xl mx-auto py-10">
+    <div className="flex flex-col items-center max-w-3xl mx-auto py-4 md:py-10">
       <div className="w-full flex justify-between items-center mb-6 text-sm font-medium text-gray-500 dark:text-gray-400">
         <span>{topicTitle}</span>
         <span>Card {currentIndex + 1} of {deck.length}</span>
       </div>
 
-      <div className="relative w-full aspect-[4/3] max-w-2xl perspective-1000">
+      <div className="relative w-full aspect-[3/2] md:aspect-[4/3] max-w-2xl perspective-1000">
         <motion.div
           className="w-full h-full relative preserve-3d cursor-pointer"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -168,8 +168,8 @@ export default function FlashcardTab({ flashcards, topicTitle }: { flashcards: F
           onClick={() => setIsFlipped(!isFlipped)}
         >
           {/* Front */}
-          <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-10 bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white leading-snug">
+          <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-5 md:p-10 bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 text-center">
+            <h3 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white leading-snug">
               {currentCard.front}
             </h3>
             <p className="absolute bottom-6 text-sm text-gray-400 font-medium tracking-widest uppercase">Click to flip</p>
@@ -177,10 +177,10 @@ export default function FlashcardTab({ flashcards, topicTitle }: { flashcards: F
 
           {/* Back */}
           <div 
-            className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-10 bg-blue-50 dark:bg-blue-900/20 rounded-3xl shadow-xl border border-blue-200 dark:border-blue-900/50 text-center"
+            className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-5 md:p-10 bg-blue-50 dark:bg-blue-900/20 rounded-3xl shadow-xl border border-blue-200 dark:border-blue-900/50 text-center"
             style={{ transform: "rotateY(180deg)" }}
           >
-            <div className="text-xl text-blue-900 dark:text-blue-100 leading-relaxed font-medium">
+            <div className="text-base md:text-xl text-blue-900 dark:text-blue-100 leading-relaxed font-medium overflow-y-auto max-h-full">
               {currentCard.back}
             </div>
           </div>

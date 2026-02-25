@@ -66,7 +66,7 @@ export default function QuizTab({ quizzes, topicId }: { quizzes: QuizQuestion[],
   const score = quizzes.length - incorrectIndices.length;
 
   return (
-    <div className="space-y-8 max-w-3xl mx-auto pb-10 sm:px-4">
+    <div className="space-y-6 md:space-y-8 max-w-3xl mx-auto pb-10">
       
       {examSubmitted && (
         <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl shadow-sm text-center mb-10 animate-in fade-in zoom-in-95">
@@ -101,7 +101,7 @@ export default function QuizTab({ quizzes, topicId }: { quizzes: QuizQuestion[],
         const isCorrect = examSubmitted && !incorrectIndices.includes(idx);
         
         return (
-          <div key={`quiz-q-${idx}`} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 relative overflow-hidden">
+          <div key={`quiz-q-${idx}`} className="bg-white dark:bg-gray-900 p-4 md:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 relative overflow-hidden">
             {/* Conditional Status Banner along the left edge when submitted */}
             {examSubmitted && (
               <div className={cn("absolute left-0 top-0 bottom-0 w-1.5", isCorrect ? "bg-green-500" : "bg-red-500")} />

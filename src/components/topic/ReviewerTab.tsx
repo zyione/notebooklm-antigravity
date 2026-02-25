@@ -21,14 +21,14 @@ export default function ReviewerTab({ content, topicId }: { content: ReviewerCon
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 h-full">
-      {/* Sidebar for Sub-tabs */}
+    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+      {/* Sub-tab Navigation: horizontal scroll on mobile, vertical sidebar on desktop */}
       <div className="md:w-64 flex-shrink-0">
-        <nav className="flex flex-col space-y-1">
+        <nav className="flex md:flex-col space-x-2 md:space-x-0 md:space-y-1 overflow-x-auto pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
           {[
-            { id: 'summary', title: 'Topic Summary' },
+            { id: 'summary', title: 'Summary' },
             { id: 'quick-review', title: 'Quick Review' },
-            { id: 'terms', title: 'Important Terms' },
+            { id: 'terms', title: 'Terms' },
             { id: 'active-recall', title: 'Active Recall' },
             { id: 'examples', title: 'Examples' }
           ].map(tab => (
@@ -36,7 +36,7 @@ export default function ReviewerTab({ content, topicId }: { content: ReviewerCon
               key={tab.id}
               onClick={() => setActiveSubTab(tab.id as any)}
               className={cn(
-                "px-3 py-2 text-sm font-medium rounded-md text-left transition-colors",
+                "px-3 py-2 text-sm font-medium rounded-md text-left transition-colors whitespace-nowrap flex-shrink-0",
                 activeSubTab === tab.id 
                   ? "bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200"
                   : "text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
@@ -49,7 +49,7 @@ export default function ReviewerTab({ content, topicId }: { content: ReviewerCon
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 min-h-[500px] bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+      <div className="flex-1 min-h-[300px] md:min-h-[500px] bg-white dark:bg-gray-900 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
         {activeSubTab === 'summary' && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
             <div>
@@ -105,9 +105,9 @@ export default function ReviewerTab({ content, topicId }: { content: ReviewerCon
         )}
 
         {activeSubTab === 'active-recall' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 pl-8">
-            <h3 className="text-xl font-bold mb-4 dark:text-white -ml-8">Active Recall</h3>
-            <p className="text-sm text-gray-500 mb-4 -ml-8">Click "Show Answer" to verify your knowledge. Click the green checkmark to mark as done.</p>
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 md:pl-8">
+            <h3 className="text-xl font-bold mb-4 dark:text-white md:-ml-8">Active Recall</h3>
+            <p className="text-sm text-gray-500 mb-4 md:-ml-8">Click &quot;Show Answer&quot; to verify your knowledge. Click the green checkmark to mark as done.</p>
             {content.activeRecallQuestions.map((qa, i) => {
               const isRevealed = revealedRecallIds.has(i);
               const questionId = `${topicId}-recall-${i}`;

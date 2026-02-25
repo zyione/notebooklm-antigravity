@@ -18,15 +18,15 @@ export default function TopicView({ topic }: { topic: Topic }) {
   ] as const;
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col h-[calc(100vh-3rem)]">
+    <div className="max-w-5xl mx-auto flex flex-col min-h-[calc(100vh-6rem)]">
       <header className="mb-6">
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">{topic.title}</h1>
         <p className="mt-2 text-lg text-gray-500 dark:text-gray-400">{topic.reviewer.summary}</p>
       </header>
 
       {/* Tabs Navigation */}
-      <div className="border-b border-gray-200 dark:border-gray-800">
-        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+      <div className="sticky top-[72px] md:top-0 z-20 pt-2 pb-0 bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 -mx-4 px-4 md:mx-0 md:px-0">
+        <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -45,7 +45,7 @@ export default function TopicView({ topic }: { topic: Topic }) {
       </div>
 
       {/* Tab Content */}
-      <div className="py-6 flex-1 overflow-y-auto pr-2 pb-12">
+      <div className="py-6 flex-1 pb-12">
         {activeTab === 'reviewer' && <ReviewerTab content={topic.reviewer} topicId={topic.id} />}
         {activeTab === 'lessons' && <LessonsTab lessons={topic.lessons} />}
         {activeTab === 'quiz' && <QuizTab quizzes={topic.quizzes} topicId={topic.id} />}
